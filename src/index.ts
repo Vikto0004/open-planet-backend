@@ -1,13 +1,18 @@
-import express from "express";
+import mongoose from "mongoose";
 
-const app = express();
-const port = 3000;
+import * as dotenv from "dotenv";
+import { app } from "./app";
+dotenv.config();
 
-app.get("/", (req, res) => {
-  console.log("hello");
-  res.json("Hello, World!");
-});
+const { DB_HOST, PORT = 3000 } = process.env;
 
-app.listen(port, () => {
-  console.log("port run", port);
-});
+mongoose
+  .connect(DB_HOST!)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log("Database connect success");
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
