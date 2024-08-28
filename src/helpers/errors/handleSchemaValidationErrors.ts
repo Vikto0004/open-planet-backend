@@ -1,23 +1,23 @@
-import { NextFunction } from "express";
-import { Error } from "mongoose";
+import {
+  CallbackWithoutResultAndOptionalError,
+  Error as MongooseError,
+} from "mongoose";
 
-interface MongoError extends Error {
+interface MongoError extends MongooseError {
   name: string;
-  code?: number;
+  code?: string | number;
   status?: number;
 }
 
 const isConflict = ({ name, code }: MongoError) =>
-  name === "MongoServerError" && code === 11000;
+  name === "MongoServerError" && (code === 11000 || code === "11000");
 
-const handleSchemaValidationErrors = (
+export const handleSchemaValidationErrors = (
   error: MongoError,
-  req: Request,
-  res: Response,
-  next: NextFunction,
+  next: CallbackWithoutResultAndOptionalError,
 ): void => {
-  error.status = isConflict(error) ? 409 : 400;
-  next();
+  if (error instanceof MongooseError) {
+    error.status = isConflict(error) ? 409 : 400;
+  }
+  next(error);
 };
-
-export default handleSchemaValidationErrors;

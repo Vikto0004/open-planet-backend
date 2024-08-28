@@ -3,9 +3,12 @@ import dotenv from "dotenv";
 import fs from "node:fs";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
+import "express-async-errors";
 
 import { json } from "body-parser";
-import { errorHandler } from "./helpers/errors/errorHandler";
+import errorHandler from "./helpers/errors/errorHandler";
+import routers from "./routes/routers";
+
 dotenv.config();
 const { CLIENT_URL } = process.env;
 
@@ -28,6 +31,10 @@ app.use(
   }),
 );
 app.use(json());
+
+app.use(express.json());
+
+app.use("/api", routers);
 
 swaggerUi.setup(swaggerDocument);
 
