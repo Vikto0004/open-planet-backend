@@ -13,14 +13,6 @@
     {
       "name": "Auth",
       "description": "Authorization and user endpoints"
-    },
-    {
-      "name": "Courses",
-      "description": "Get courses stats endpoint"
-    },
-    {
-      "name": "User",
-      "description": "Update User"
     }
   ],
 
@@ -130,7 +122,7 @@
 
       "Registration": {
         "type": "object",
-        "required": ["email", "password", "repeat_password"],
+        "required": ["email", "password", "consfirmPassword"],
         "properties": {
           "email": {
             "type": "string",
@@ -140,9 +132,9 @@
             "type": "string",
             "minLength": 6
           },
-          "repeat_password": {
+          "consfirmPassword": {
             "type": "string",
-            "minLength": 3
+            "minLength": 6
           }
         }
       },
@@ -151,9 +143,6 @@
         "properties": {
           "user": {
             "$ref": "#/components/schemas/User"
-          },
-          "token": {
-            "type": "string"
           }
         }
       },

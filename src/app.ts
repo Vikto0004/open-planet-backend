@@ -16,6 +16,10 @@ export const app = express();
 
 const swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf-8"));
 
+swaggerUi.setup(swaggerDocument);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.set("trust proxy", 1);
 
 app.use(
@@ -35,7 +39,5 @@ app.use(json());
 app.use(express.json());
 
 app.use("/api", routers);
-
-swaggerUi.setup(swaggerDocument);
 
 app.use(errorHandler);
