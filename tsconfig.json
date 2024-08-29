@@ -3,7 +3,16 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "paths": {
+      "@/app/*": ["./src/app/*"],
+      "@/middleware/*": ["./src/middlewares/*"],
+      "@/controllers/*": ["./src/controllers/*"],
+      "@/errors/*": ["./src/helpers/errors/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/models/*": ["./src/models/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

@@ -1,9 +1,9 @@
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
-import requestError from "../../helpers/errors/requestError";
-import { UserModel } from "../../models/userModel";
-import { CreateUserDto } from "../../types/CreateUser.dto";
+import requestError from "@/errors/requestError";
+import { UserModel } from "@/models/userModel";
+import { CreateUserDto } from "@/types/CreateUser.dto";
 
 const register = async (req: Request, res: Response) => {
   const { email, password } = req.body as CreateUserDto;
