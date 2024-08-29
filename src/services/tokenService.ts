@@ -1,12 +1,15 @@
 import jwt from "jsonwebtoken";
-
+import { Types } from "mongoose";
 import dotenv from "dotenv";
+
 import { TokenModel } from "../models/tokenMode";
+import { TGenerateToken } from "../types/Token";
+
 dotenv.config();
 
 const { SECRET_TOKEN_KEY } = process.env;
 
-export const generateTokens = async (payload) => {
+export const generateToken = async (payload: TGenerateToken) => {
   const token = jwt.sign(payload, SECRET_TOKEN_KEY!, {
     expiresIn: "30d",
   });
@@ -15,17 +18,17 @@ export const generateTokens = async (payload) => {
   };
 };
 
-export const saveTokens = async (userId: string, token: string) => {
-  const tokenData = await TokenModel.findOne({ user: userId });
-  if (tokenData) {
-    tokenData.token = token;
-    return tokenData.save();
+export const saveToken = async (userId: Types.ObjectId, token: string) => {
+  const isTokenExist = await TokenModel.findOne({ user: userId });
+  if (isTokenExist) {
+    isTokenExist.token = token;
+    return isTokenExist.save();
   }
-  const token = Tokens.create({ user: userId, refreshToken });
-  return token;
-};
-
-export const removeToken = async (token) => {
-  const tokenData = await TokenModel.deleteOne({ token });
+  const tokenData = TokenModel.create({ user: userId, token });
   return tokenData;
 };
+
+// export const removeToken = async (token) => {
+//   const tokenData = await TokenModel.deleteOne({ token });
+//   return tokenData;
+// };
