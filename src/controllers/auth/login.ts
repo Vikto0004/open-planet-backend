@@ -1,9 +1,10 @@
-import { generateToken, saveToken } from "../../services/tokenService";
-import requestError from "../../helpers/errors/requestError";
-import { UserModel } from "../../models/userModel";
-import { CreateUserDto } from "../../types/CreateUser.dto";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
+
+import requestError from "../../helpers/errors/requestError";
+import { UserModel } from "../../models/userModel";
+import { generateToken, saveToken } from "../../services/tokenService";
+import { CreateUserDto } from "../../types/CreateUser.dto";
 
 const login = async (req: Request, res: Response) => {
   const { email, password } = req.body as CreateUserDto;
