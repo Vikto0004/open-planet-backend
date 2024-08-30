@@ -1,9 +1,9 @@
+import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
-import dotenv from "dotenv";
 
-import { TokenModel } from "../models/tokenMode";
-import { TGenerateToken } from "../types/Token";
+import { TGenerateToken } from "@/types/Token";
+import { TokenModel } from "../models/tokenModel";
 
 dotenv.config();
 
@@ -13,9 +13,7 @@ export const generateToken = async (payload: TGenerateToken) => {
   const token = jwt.sign(payload, SECRET_TOKEN_KEY!, {
     expiresIn: "30d",
   });
-  return {
-    token,
-  };
+  return token;
 };
 
 export const saveToken = async (userId: Types.ObjectId, token: string) => {

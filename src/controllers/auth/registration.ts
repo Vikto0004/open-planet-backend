@@ -3,10 +3,10 @@ import { Request, Response } from "express";
 
 import requestError from "@/errors/requestError";
 import { UserModel } from "@/models/userModel";
-import { CreateUserDto } from "@/types/CreateUser.dto";
+import { TUser } from "@/types/User";
 
 const register = async (req: Request, res: Response) => {
-  const { email, password } = req.body as CreateUserDto;
+  const { email, password } = req.body as TUser;
 
   const user = await UserModel.findOne({ email });
 

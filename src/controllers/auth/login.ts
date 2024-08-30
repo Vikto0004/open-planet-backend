@@ -1,13 +1,13 @@
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
+import { TUser } from "@/types/User";
 import requestError from "../../helpers/errors/requestError";
 import { UserModel } from "../../models/userModel";
 import { generateToken, saveToken } from "../../services/tokenService";
-import { CreateUserDto } from "../../types/CreateUser.dto";
 
 const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body as CreateUserDto;
+  const { email, password } = req.body as TUser;
 
   const user = await UserModel.findOne({ email });
 
@@ -25,7 +25,7 @@ const login = async (req: Request, res: Response) => {
 
   const token = await generateToken(payload);
 
-  saveToken(user._id, token.token);
+  saveToken(user._id, token);
 
   res.cookie("token", token, {
     maxAge: 30 * 24 * 60 * 60 * 100,

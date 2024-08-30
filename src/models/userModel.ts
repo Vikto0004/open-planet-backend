@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
 import Joi from "joi";
+import { Schema, model } from "mongoose";
 
 const emailRegexp = /^[\w.]+@[\w]+.[\w]+$/;
 
@@ -28,7 +28,7 @@ const userSchema = new Schema(
 export const registrationSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
-  consfirmPassword: Joi.ref("password"),
+  confirmPassword: Joi.ref("password"),
 });
 
 export const loginSchema = Joi.object({
