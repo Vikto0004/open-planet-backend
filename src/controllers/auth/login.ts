@@ -1,10 +1,10 @@
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
+import { UserModel } from "@/models/userModel";
+import { generateToken, saveToken } from "@/services/tokenService";
 import { TUserLogin } from "@/types/User";
 import requestError from "../../helpers/errors/requestError";
-import { UserModel } from "../../models/userModel";
-import { generateToken, saveToken } from "../../services/tokenService";
 
 const login = async (req: Request, res: Response) => {
   const { email, password } = req.body as TUserLogin;

@@ -1,9 +1,9 @@
-import express from "express";
-import dotenv from "dotenv";
-import fs from "node:fs";
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
+import dotenv from "dotenv";
+import express from "express";
 import "express-async-errors";
+import fs from "node:fs";
+import swaggerUi from "swagger-ui-express";
 
 import { json } from "body-parser";
 import errorHandler from "./helpers/errors/errorHandler";

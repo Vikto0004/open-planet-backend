@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Schema } from "joi";
 const validationBody = (schema: Schema) => {
   return (req: Request, res: Response, next: NextFunction) => {
