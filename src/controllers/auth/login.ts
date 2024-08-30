@@ -1,13 +1,13 @@
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
-import { TUser } from "@/types/User";
+import { TUserLogin } from "@/types/User";
 import requestError from "../../helpers/errors/requestError";
 import { UserModel } from "../../models/userModel";
 import { generateToken, saveToken } from "../../services/tokenService";
 
 const login = async (req: Request, res: Response) => {
-  const { email, password } = req.body as TUser;
+  const { email, password } = req.body as TUserLogin;
 
   const user = await UserModel.findOne({ email });
 

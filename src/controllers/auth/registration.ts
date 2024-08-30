@@ -3,10 +3,10 @@ import { Request, Response } from "express";
 
 import requestError from "@/errors/requestError";
 import { UserModel } from "@/models/userModel";
-import { TUser } from "@/types/User";
+import { TUserRegister } from "@/types/User";
 
 const register = async (req: Request, res: Response) => {
-  const { email, password } = req.body as TUser;
+  const { email, password, username } = req.body as TUserRegister;
 
   const user = await UserModel.findOne({ email });
 
@@ -17,12 +17,14 @@ const register = async (req: Request, res: Response) => {
   const hashPassword = await bcryptjs.hash(password, 10);
 
   const result = await UserModel.create({
+    username,
     email,
     password: hashPassword,
   });
 
   res.status(201).json({
     user: {
+      username: result.username,
       email: result.email,
       id: result._id,
     },
