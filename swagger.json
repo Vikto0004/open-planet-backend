@@ -39,7 +39,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UserResponse"
+                  "$ref": "#/components/schemas/ResponseRegister"
                 }
               }
             }
@@ -56,22 +56,26 @@
         "tags": ["Auth"],
         "summary": "User login",
         "description": "Authenticate a user and return a token",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Login details",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Login"
+        "requestBody": {
+          "description": "Login details",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "Successful login",
-            "schema": {
-              "$ref": "#/components/schemas/UserResponse"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseLogin"
+                }
+              }
             }
           },
           "401": {
@@ -132,13 +136,13 @@
             "type": "string",
             "minLength": 6
           },
-          "consfirmPassword": {
+          "confirmPassword": {
             "type": "string",
             "minLength": 6
           }
         }
       },
-      "UserResponse": {
+      "ResponseRegister": {
         "type": "object",
         "properties": {
           "user": {
@@ -146,6 +150,18 @@
           }
         }
       },
+      "ResponseLogin": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "$ref": "#/components/schemas/Token"
+          }
+        }
+      },
+
       "User": {
         "type": "object",
         "properties": {
@@ -153,6 +169,15 @@
             "type": "string"
           },
           "id": {
+            "type": "string"
+          }
+        }
+      },
+
+      "Token": {
+        "type": "object",
+        "properties": {
+          "token": {
             "type": "string"
           }
         }
